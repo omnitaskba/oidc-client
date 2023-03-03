@@ -32,6 +32,7 @@ use Maicol07\OpenIDConnect\Traits\DynamicRegistration;
 use Maicol07\OpenIDConnect\Traits\ImplictFlow;
 use Maicol07\OpenIDConnect\Traits\JWT;
 use Maicol07\OpenIDConnect\Traits\Token;
+use Illuminate\Support\Facades\Http;
 
 /**
  *
@@ -242,7 +243,7 @@ class Client
      */
     public function getUserInfo(): UserInfo
     {
-        $response = $this->http_client->withToken($this->access_token)
+        $response = Http::withToken($this->access_token)->withToken($this->access_token)
             ->acceptJson()
             ->get($this->userinfo_endpoint, ['schema' => 'openid']);
 

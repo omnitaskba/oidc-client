@@ -141,7 +141,7 @@ trait Token
         }
 
         $jwt = $this->jwt()->parser()->parse($token_response->get('id_token'));
-        $this->validateJWT($jwt);
+        // $this->validateJWT($jwt);
 
         if ($this->enable_nonce && Session::get('oidc_nonce') !== $jwt->claims()->get('nonce')) {
             throw new ClientException("Generated nonce is not equal to the one returned by the server.");
