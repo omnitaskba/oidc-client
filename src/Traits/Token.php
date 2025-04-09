@@ -22,6 +22,7 @@ use cse\helpers\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Maicol07\OpenIDConnect\ClientException;
+use Log;
 
 trait Token
 {
@@ -167,10 +168,11 @@ trait Token
             'client_id' => $this->client_id,
             'client_secret' => $this->client_secret
         ];
-
+        
         // Consider Basic authentication if provider config is set this way
         $client = $this->http_client;
         if (in_array('client_secret_basic', $this->token_endpoint_auth_methods_supported, true)) {
+            Log::info('client_secret_basic');
             $client = $client->withBasicAuth($this->client_id, $this->client_secret);
             unset($data['client_secret'], $data['client_id']);
         }
